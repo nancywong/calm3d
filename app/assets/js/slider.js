@@ -1,7 +1,4 @@
 var myMedia = document.createElement('audio');
-$('#player').append(myMedia);
-myMedia.id = 'sounds';
-playAudio('assets/mp3s/ocean', 1);
 
 function playAudio(fileName, myVolume) {
   var mediaExt = (myMedia.canPlayType('audio/mp3')) ? '.mp3' 
@@ -19,6 +16,10 @@ function setVolume(myVolume) {
     var myMedia = document.getElementById('sounds');
     //myMedia.volume = myVolume;
 }
+
+myMedia.id = 'sounds';
+//$('#player').append(myMedia);
+//playAudio('assets/mp3s/ocean', 1);
 
 $("#volume").slider({
     min: 0,

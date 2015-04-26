@@ -41,7 +41,7 @@ var DEMO = {
 		this.ms_Controls.maxPolarAngle = Math.PI * 0.495;
 	
 		// Add light
-		var directionalLight = new THREE.DirectionalLight(0xffff55, 1);
+		var directionalLight = new THREE.DirectionalLight(0xa2ddff, 1);
 		directionalLight.position.set(-600, 300, 600);
 		this.ms_Scene.add(directionalLight);
 		

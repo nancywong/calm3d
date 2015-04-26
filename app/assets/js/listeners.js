@@ -4,14 +4,19 @@ var oldSrc = "";
 var toggleMute = function () {
   var sounds = document.getElementById('sounds');
   if (isMute) {
+    sounds.src = oldSrc;
+    sounds.volume = 1;
+    console.log('not muted: ' + sounds.src);
+    
+  } else {
     setVolume(0);
     oldSrc = sounds.src;
+    sounds.volume = 0;
     sounds.src = "";  // stop sounds
-  } else {
-    sounds.src = oldSrc;
+    console.log('mmuted src:' + sounds.src);
   }
   isMute = !isMute;
-  console.log('muted');
+  
 }
 
 window.onkeyup = function(e) {
