@@ -46,7 +46,7 @@ var DEMO = {
 		this.ms_Scene.add(directionalLight);
 		
 		// Create terrain
-		this.loadTerrain(inParameters);
+		//this.loadTerrain(inParameters);
 		
 		// Load textures		
 		var waterNormals = new THREE.ImageUtils.loadTexture('../assets/img/waternormals.jpg');
