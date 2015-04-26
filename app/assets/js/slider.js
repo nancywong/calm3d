@@ -12,7 +12,7 @@ $("#volume").slider({
   var myMedia = document.createElement('audio');
   $('#player').append(myMedia);
   myMedia.id = "myMedia";
-  playAudio('http://iviewsource.com/exercises/audioslider/audio/ViewSource', 0);
+  playAudio('assets/mp3s/ocean', 0);
 
 function playAudio(fileName, myVolume) {
   var mediaExt = (myMedia.canPlayType('audio/mp3')) ? '.mp3' 
