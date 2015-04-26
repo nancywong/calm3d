@@ -3,16 +3,17 @@ var oldSrc = "";
 
 var toggleMute = function () {
   var sounds = document.getElementById('sounds');
+
   if (isMute) {
-    sounds.src = oldSrc;
-    sounds.volume = 1;
+    // unmute
+//    $('#sounds').get(0).play();
+    sounds.play();
     console.log('not muted: ' + sounds.src);
     
   } else {
-    setVolume(0);
-    oldSrc = sounds.src;
-    sounds.volume = 0;
-    sounds.src = "";  // stop sounds
+    // mute sounds
+    //$('#sounds').get(0).pause();
+    sounds.pause();
     console.log('mmuted src:' + sounds.src);
   }
   isMute = !isMute;
