@@ -13,8 +13,8 @@
 		<!-- volume slider -->
 		<!--<script src="assets/js/slider.js"></script>-->
 		<div id="player">
-			<audio id='sounds' controls autoplay loop> 
-				<source id='ocean-sounds' src="assets/mp3s/ocean.mp3" type="audio/mpeg">
+			<audio id='sounds-player' controls autoplay loop> 
+				<source id='sounds' src="assets/mp3s/ocean.mp3" type="audio/mpeg">
 			</audio>
 			<p id="instructions">
 			m to mute<br><br>
@@ -22,8 +22,8 @@
 			arrow keys to pan
 			<br>
 		</div>
-		<button id="ocean-button" type="button">ocean</button>
-		<button id="rain-button" type="button">rain</button>
+		<button id="ocean-button" type="button" onclick="toOcean()">ocean</button>
+		<button id="clouds-button" type="button" onclick="toClouds()">clouds</button>
 
 		<!-- canvas for ocean shader -->
 		<!-- <div id="canvas-3d" class="viewer"></div> -->
@@ -36,7 +36,6 @@
 		<script src="assets/libs/three/OrbitControls.js"></script>
 		<script src="assets/libs/three/ParticleEngine.js"></script>
 		<script src="assets/libs/FastBlur.js"></script>
-
 		
 		<!-- Terrain generator 
 	
