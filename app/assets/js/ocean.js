@@ -1,9 +1,3 @@
-function mainLoop() {
-	requestAnimationFrame(mainLoop);
-	OCEAN.update();
-}
-
-
 function onDocumentMouseDown(event) {
     event.preventDefault();
     
@@ -22,30 +16,25 @@ function onDocumentMouseDown(event) {
     }                
 }
 
-$(function() {
-	WINDOW.initialize();
 
-	document.addEventListener('click', onDocumentMouseDown, false);
-	
-	var parameters = {
-		alea: RAND_MT,
-		generator: PN_GENERATOR,
-		width: 2000,
-		height: 2000,
-		widthSegments: 250,
-		heightSegments: 250,
-		depth: 1500,
-		param: 4,
-		filterparam: 1,
-		filter: [ CIRCLE_FILTER ],
-		postgen: [ MOUNTAINS_COLORS ],
-		effect: [ DESTRUCTURE_EFFECT ]
-	};
-	
-	OCEAN.initialize('canvas-3d', parameters);
-	
-	WINDOW.resizeCallback = function(inWidth, inHeight) { OCEAN.resize(inWidth, inHeight); };
-	OCEAN.resize(WINDOW.ms_Width, WINDOW.ms_Height);
-	
-	mainLoop();
-});
+var loadOcean = function () {
+  var parameters = {
+        alea: RAND_MT,
+        generator: PN_GENERATOR,
+        width: 2000,
+        height: 2000,
+        widthSegments: 250,
+        heightSegments: 250,
+        depth: 1500,
+        param: 4,
+        filterparam: 1,
+        filter: [ CIRCLE_FILTER ],
+        postgen: [ MOUNTAINS_COLORS ],
+        effect: [ DESTRUCTURE_EFFECT ]
+      };
+      
+      OCEAN.initialize('canvas-3d', parameters);
+      
+      WINDOW.resizeCallback = function(inWidth, inHeight) { OCEAN.resize(inWidth, inHeight); };
+      OCEAN.resize(WINDOW.ms_Width, WINDOW.ms_Height);
+}

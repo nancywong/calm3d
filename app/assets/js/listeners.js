@@ -35,17 +35,33 @@ window.onkeyup = function(e) {
 
 // on-click buttons
 var toOcean = function () {
-  $sounds.attr("src", 'assets/mp3s/ocean.mp3');
-  scene_s = OCEAN_S;
-  $('body').css("background-color","#000");
+  if(scene_s !== OCEAN_S) {
+     $('#canvas-clouds').hide();
+    // $('#canvas-3d').show();
 
-  $player.load();
+    $('body').css("background-color","#000");
+
+    $sounds.attr("src", 'assets/mp3s/ocean.mp3');
+    $player.load();
+
+    loadOcean();
+    scene_s = OCEAN_S;
+  }
 }
 
 var toClouds = function () {
-  $sounds.attr("src", 'assets/mp3s/wind.wav');
-  $('body').css("background-color","#326696");
-  //scene_s = CLOUDS_S;
+  if(scene_s !== CLOUDS_S) {
+    $('#canvas-3d').hide();
+    //$('#canvas-clouds').show();
 
-  $player.load();
+    $(' body').css("background-color","#1e4877");
+
+    $sounds.attr("src", 'assets/mp3s/wind.wav');
+    $player.load();
+    
+    //CLOUDS.init();
+    clouds_init();
+    scene_s = CLOUDS_S;
+  }
+  
 }
