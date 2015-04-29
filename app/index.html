@@ -10,8 +10,23 @@
 	</head>
 
 	<body>	
+		<!-- volume slider -->
+		<!--<script src="assets/js/slider.js"></script>-->
+		<div id="player">
+			<audio id='sounds' controls autoplay loop> 
+				<source id='ocean-sounds' src="assets/mp3s/ocean.mp3" type="audio/mpeg">
+			</audio>
+			<p id="instructions">
+			m to mute<br><br>
+			click and drag to look around<br>
+			arrow keys to pan
+			<br>
+		</div>
+		<button id="ocean-button" type="button">ocean</button>
+		<button id="rain-button" type="button">rain</button>
 
-		<div id="canvas-3d" class="viewer"></div>
+		<!-- canvas for ocean shader -->
+		<!-- <div id="canvas-3d" class="viewer"></div> -->
 
 		<!-- External libraries -->
 		<script src="assets/libs/jquery.min.js"></script>
@@ -19,32 +34,75 @@
 		
 		<script src="assets/libs/RequestAnimationFrame.js"></script>
 		<script src="assets/libs/three/OrbitControls.js"></script>
+		<script src="assets/libs/three/ParticleEngine.js"></script>
 		<script src="assets/libs/FastBlur.js"></script>
+
 		
-		<!-- Terrain generator -->
+		<!-- Terrain generator 
+	
+
+		<script src="assets/libs/terrain-generator/mountains.js"></script>
 		<script src="assets/libs/terrain-generator/mersenne-twister.js"></script>
 		<script src="assets/libs/terrain-generator/blur.js"></script>
 		<script src="assets/libs/terrain-generator/destructure.js"></script>
-		<script src="assets/libs/terrain-generator/mountains.js"></script>
 		<script src="assets/libs/terrain-generator/perlinnoise.js"></script>
-		<script src="assets/libs/terrain-generator/terraingen.js"></script>
-		<script src="assets/libs/terrain-generator/circle.js"></script>
-		
+		<script src="assets/libs/terrain-generator/terraingen.js"></script>	
+		<script src="assets/libs/terrain-generator/circle.js"></script>-->
+
+
 		<!-- Water shader -->
-		<script src="assets/js/water-material.js"></script>
+		<script src="assets/js/water-material.js"></script>-->
 		
-		<!-- Demo files -->
+		<!-- Demo files 
 		<script src="assets/js/window.js"></script>
 		<script src="assets/js/demo.js"></script>
-		<script src="assets/js/main.js"></script>
+		<script src="assets/js/ocean.js"></script> -->
+		<!--<script type="text/javascript" src="assets/js/forest.js"></script>
+		<script type="text/javascript" src="assets/js/rain.js"></script>-->
 
+		<script type="text/javascript" src="assets/js/detector.js"></script>
 
-		<!-- volume slider 
+		<!-- clouds shaders -->
+		<script id="vs" type="x-shader/x-vertex">
 
-		<script src="assets/js/slider.js"></script>
-		<div id="player">
-			<div id="volume"></div>
-		</div>-->
+			varying vec2 vUv;
+
+			void main() {
+
+				vUv = uv;
+				gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+
+			}
+
+		</script>
+
+		<script id="fs" type="x-shader/x-fragment">
+
+			uniform sampler2D map;
+
+			uniform vec3 fogColor;
+			uniform float fogNear;
+			uniform float fogFar;
+
+			varying vec2 vUv;
+
+			void main() {
+
+				float depth = gl_FragCoord.z / gl_FragCoord.w;
+				float fogFactor = smoothstep( fogNear, fogFar, depth );
+
+				gl_FragColor = texture2D( map, vUv );
+				gl_FragColor.w *= pow( gl_FragCoord.z, 20.0 );
+				gl_FragColor = mix( gl_FragColor, vec4( fogColor, gl_FragColor.w ), fogFactor );
+
+			}
+
+		</script>
+		<script type="text/javascript" src="assets/js/clouds.js"></script>
+
+		<!-- keyboard listeners -->
+		<script id="listeners" src="assets/js/listeners.js"></script>
+		
 
 	</body>
 </html>

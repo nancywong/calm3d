@@ -1,4 +1,4 @@
-var DEMO = {
+var OCEAN = {
 	ms_Canvas: null,
 	ms_Renderer: null,
 	ms_Camera: null, 
@@ -41,12 +41,12 @@ var DEMO = {
 		this.ms_Controls.maxPolarAngle = Math.PI * 0.495;
 	
 		// Add light
-		var directionalLight = new THREE.DirectionalLight(0xffff55, 1);
+		var directionalLight = new THREE.DirectionalLight(0xa2ddff, 1);
 		directionalLight.position.set(-600, 300, 600);
 		this.ms_Scene.add(directionalLight);
 		
 		// Create terrain
-		this.loadTerrain(inParameters);
+		//this.loadTerrain(inParameters);
 		
 		// Load textures		
 		var waterNormals = new THREE.ImageUtils.loadTexture('../assets/img/waternormals.jpg');

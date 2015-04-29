@@ -1,18 +1,4 @@
-$("#volume").slider({
-    min: 0,
-    max: 100,
-    value: 0,
-    range: "min",
-    animate: true,
-    slide: function(event, ui) {
-      setVolume((ui.value) / 100);
-    }
-  });
-
-  var myMedia = document.createElement('audio');
-  $('#player').append(myMedia);
-  myMedia.id = "myMedia";
-  playAudio('http://iviewsource.com/exercises/audioslider/audio/ViewSource', 0);
+var myMedia = document.createElement('audio');
 
 function playAudio(fileName, myVolume) {
   var mediaExt = (myMedia.canPlayType('audio/mp3')) ? '.mp3' 
@@ -27,6 +13,21 @@ function playAudio(fileName, myVolume) {
 }
 
 function setVolume(myVolume) {
-    var myMedia = document.getElementById('myMedia');
-    myMedia.volume = myVolume;
+    var myMedia = document.getElementById('sounds');
+    //myMedia.volume = myVolume;
 }
+
+myMedia.id = 'sounds';
+$('#player').append(myMedia);
+//playAudio('assets/mp3s/ocean', 1);
+
+$("#volume").slider({
+    min: 0,
+    max: 100,
+    value: 0,
+    range: "min",
+    animate: true,
+    slide: function(event, ui) {
+      setVolume((ui.value) / 100);
+    }
+});
