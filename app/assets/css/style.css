@@ -13,6 +13,25 @@ body {
   margin: 10px;
 }
 
+#player {
+  display:inline-block;
+  vertical-align: middle;
+}
+
+#ocean-button {
+  display:inline-block;
+  vertical-align: middle;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+#rain-button {
+  display:inline-block;
+  vertical-align: middle;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
 #canvas-3d {
   position:absolute;
   z-index: 0;
