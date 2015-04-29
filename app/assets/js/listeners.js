@@ -9,11 +9,15 @@ var toggleMute = function () {
   if (isMute) {
     // unmute
     sounds.play();
-    $instructions.html('m to mute');
+    $instructions.html('m to mute<br><br>
+      click and drag to look around<br>
+      arrow keys to pan');
   } else {
     // mute sounds
     sounds.pause();
-    $instructions.html('m to unmute');
+    $instructions.html('m to ummute<br><br>
+      click and drag to look around<br>
+      arrow keys to pan');
   }
   isMute = !isMute;
   
@@ -22,6 +26,7 @@ var toggleMute = function () {
 window.onkeyup = function(e) {
    var key = e.keyCode ? e.keyCode : e.which;
 
+   // 'm'
    if (key == 77) {
       console.log('m key pressed');
       toggleMute();
