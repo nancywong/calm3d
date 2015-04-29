@@ -18,7 +18,7 @@ function setVolume(myVolume) {
 }
 
 myMedia.id = 'sounds';
-//$('#player').append(myMedia);
+$('#player').append(myMedia);
 //playAudio('assets/mp3s/ocean', 1);
 
 $("#volume").slider({
