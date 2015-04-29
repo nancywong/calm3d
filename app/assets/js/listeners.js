@@ -36,14 +36,16 @@ window.onkeyup = function(e) {
 // on-click buttons
 var toOcean = function () {
   $sounds.attr("src", 'assets/mp3s/ocean.mp3');
-  console.log('ocean noises');
+  scene_s = OCEAN_S;
+  $('body').css("background-color","#000");
 
   $player.load();
 }
 
 var toClouds = function () {
   $sounds.attr("src", 'assets/mp3s/wind.wav');
-  console.log('wind noises');
+  $('body').css("background-color","#326696");
+  //scene_s = CLOUDS_S;
 
   $player.load();
 }

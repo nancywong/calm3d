@@ -1,25 +1,25 @@
-public static final String OCEAN_S  = 'ocean';
-public static final String CLOUDS_S = 'clouds';
-public static final String RAIN_S   = 'rain';
-public static final String FOREST_S = 'forest';
+const OCEAN_S  = 'ocean';
+const CLOUDS_S = 'clouds';
+const RAIN_S   = 'rain';
+const FOREST_S = 'forest';
 
-var scene = OCEAN_S;
+var scene_s = OCEAN_S;
 
 function mainLoop() {
   requestAnimationFrame(mainLoop);
 
-  switch(scene) {
+  switch(scene_s) {
     case OCEAN_S:
       OCEAN.update();
     break;
     case CLOUDS_S:
+
     break;
     case RAIN_S:
     break;
     case FOREST_S:
     break;
   }
-  OCEAN.update();
 }
 
 function onDocumentMouseDown(event) {
@@ -32,7 +32,7 @@ function onDocumentMouseDown(event) {
     
     OCEAN.ms_Projector.unprojectVector( vector, OCEAN.ms_Camera );
     
-    var ray = new THREE.Raycaster( DEMO.ms_Camera.position, vector.sub( OCEAN.ms_Camera.position ).normalize() );
+    var ray = new THREE.Raycaster( OCEAN.ms_Camera.position, vector.sub( OCEAN.ms_Camera.position ).normalize() );
     var intersects = ray.intersectObjects( OCEAN.ms_Clickable );    
 
     if (intersects.length > 0) {  
@@ -40,14 +40,8 @@ function onDocumentMouseDown(event) {
     }                
 }
 
-$(function() {
-  WINDOW.initialize();
-
-  document.addEventListener('click', onDocumentMouseDown, false);
-  
-  switch(scene) {
-    case OCEAN_S:
-      var parameters = {
+var loadOcean = function () {
+  var parameters = {
         alea: RAND_MT,
         generator: PN_GENERATOR,
         width: 2000,
@@ -66,9 +60,14 @@ $(function() {
       
       WINDOW.resizeCallback = function(inWidth, inHeight) { OCEAN.resize(inWidth, inHeight); };
       OCEAN.resize(WINDOW.ms_Width, WINDOW.ms_Height);
-    break;
-    case CLOUDS_S:
-    break;
+}
+
+$(function() {
+  WINDOW.initialize();
+
+  document.addEventListener('click', onDocumentMouseDown, false);
   
+  // default, start with ocean scene
+  loadOcean();
   mainLoop();
 });

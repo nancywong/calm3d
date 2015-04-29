@@ -1,6 +1,6 @@
 function mainLoop() {
 	requestAnimationFrame(mainLoop);
-	DEMO.update();
+	OCEAN.update();
 }
 
 
@@ -12,10 +12,10 @@ function onDocumentMouseDown(event) {
         - ( event.clientY / window.innerHeight ) * 2 + 1, 
         0.5 );
     
-    DEMO.ms_Projector.unprojectVector( vector, DEMO.ms_Camera );
+    OCEAN.ms_Projector.unprojectVector( vector, OCEAN.ms_Camera );
     
-    var ray = new THREE.Raycaster( DEMO.ms_Camera.position, vector.sub( DEMO.ms_Camera.position ).normalize() );
-    var intersects = ray.intersectObjects( DEMO.ms_Clickable );    
+    var ray = new THREE.Raycaster( OCEAN.ms_Camera.position, vector.sub( OCEAN.ms_Camera.position ).normalize() );
+    var intersects = ray.intersectObjects( OCEAN.ms_Clickable );    
 
     if (intersects.length > 0) {  
         intersects[0].object.callback();
@@ -42,10 +42,10 @@ $(function() {
 		effect: [ DESTRUCTURE_EFFECT ]
 	};
 	
-	DEMO.initialize('canvas-3d', parameters);
+	OCEAN.initialize('canvas-3d', parameters);
 	
-	WINDOW.resizeCallback = function(inWidth, inHeight) { DEMO.resize(inWidth, inHeight); };
-	DEMO.resize(WINDOW.ms_Width, WINDOW.ms_Height);
+	WINDOW.resizeCallback = function(inWidth, inHeight) { OCEAN.resize(inWidth, inHeight); };
+	OCEAN.resize(WINDOW.ms_Width, WINDOW.ms_Height);
 	
 	mainLoop();
 });
