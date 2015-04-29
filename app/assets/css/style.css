@@ -1,9 +1,13 @@
 body {
-	background-color : #000;
+	background-color : #326696;
 	margin : 0px;
 	padding : 0px;
 	color : #fff;
 	overflow: hidden;
+}
+
+a {
+  color:#0078ff;
 }
 
 #instructions {

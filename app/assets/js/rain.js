@@ -1,3 +1,19 @@
+var camera, scene, renderer, geometry, material, mesh, sprite, particles;
+
+function init() {
+    scene = new THREE.Scene();
+    camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 10000);
+    camera.position.y = 150;
+    scene.add(camera);
+        renderer = new THREE.WebGLRenderer({
+        clearAlpha: 1,
+        alpha: true
+    });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setClearColor(0xffffff, 1);
+    document.body.appendChild(renderer.domElement);
+  }
+
 // rain settings
 var settings = {
   positionStyle    : Type.CUBE,
@@ -22,11 +38,6 @@ var settings = {
       emitterDeathAge    : 60
 };
 
-// set up engine
-var engine = new ParticleEngine();
-engine.setValues( settings );
-engine.initialize();
-
 var render = function () {
   requestAnimationFrame(render);
   renderer.render(scene, camera);
@@ -34,4 +45,23 @@ var render = function () {
 }
 
 
+function animate() {
+    requestAnimationFrame(animate);
+    render();
+}
 
+function render() {
+    frame++;
+    camera.position.x = 700 * Math.cos(frame / 300);
+    camera.position.z = 700 * Math.sin(frame / 300);
+    camera.lookAt(new THREE.Vector3(0, 0, 0));
+    renderer.render(scene, camera);
+}
+
+
+// set up engine
+init();
+var engine = new ParticleEngine();
+engine.setValues( settings );
+engine.initialize();
+animate();

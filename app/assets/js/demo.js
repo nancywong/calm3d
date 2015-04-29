@@ -1,4 +1,4 @@
-var DEMO = {
+var OCEAN = {
 	ms_Canvas: null,
 	ms_Renderer: null,
 	ms_Camera: null, 
