@@ -36,8 +36,8 @@ window.onkeyup = function(e) {
 // on-click buttons
 var toOcean = function () {
   if(scene_s !== OCEAN_S) {
-     $('#canvas-clouds').hide();
-    // $('#canvas-3d').show();
+     $('#cloud-container').hide();
+     $('#canvas-3d').show();
 
     $('body').css("background-color","#000");
 
@@ -52,6 +52,7 @@ var toOcean = function () {
 var toClouds = function () {
   if(scene_s !== CLOUDS_S) {
     $('#canvas-3d').hide();
+
     //$('#canvas-clouds').show();
 
     $(' body').css("background-color","#1e4877");

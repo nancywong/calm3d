@@ -40,3 +40,8 @@ a {
   position:absolute;
   z-index: 0;
 }
+
+#clouds-container {
+  background-image: url('../img/clouds-bg.png');
+  background-color: #1e4877;
+}

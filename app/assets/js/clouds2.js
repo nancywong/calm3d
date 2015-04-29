@@ -11,6 +11,7 @@ var windowHalfY = window.innerHeight / 2;
 function clouds_init() {
 
   clouds_container = document.createElement( 'div' );
+  clouds_container.id = 'clouds-container';
   document.body.appendChild( clouds_container );
 
   // Bg gradient
@@ -28,7 +29,9 @@ function clouds_init() {
   context.fillStyle = gradient;
   context.fillRect(0, 0, canvas.width, canvas.height);
 
-  clouds_container.style.background = 'assets/img/cloud.png';
+  clouds_container.style.backgroundImage = "url('assets/img/cloud-bg.png')";
+  //clouds_container.style.background = "#fff";
+  clouds_container.style.background = 'url(' + canvas.toDataURL('image/png') + ')';
   clouds_container.style.backgroundSize = '32px 100%';
 
   clouds_camera = new THREE.PerspectiveCamera( 30, window.innerWidth / window.innerHeight, 1, 3000 );
@@ -73,7 +76,6 @@ function clouds_init() {
     plane.scale.x = plane.scale.y = Math.random() * Math.random() * 1.5 + 0.5;
 
     THREE.GeometryUtils.merge( clouds_geometry, plane );
-
   }
 
   clouds_mesh = new THREE.Mesh( clouds_geometry, clouds_material );
