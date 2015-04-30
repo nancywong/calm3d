@@ -7,11 +7,14 @@
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 		<meta name="mobile-web-app-capable" content="yes" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<link rel="icon" 
+      type="image/png" 
+      href="favicon.ico">
+
 	</head>
 
 	<body>	
 		<!-- volume slider -->
-		<!--<script src="assets/js/slider.js"></script>-->
 		<div id="player">
 			<audio id='sounds-player' controls autoplay loop> 
 				<source id='sounds' src="assets/mp3s/ocean.mp3" type="audio/mpeg">
@@ -27,7 +30,6 @@
 
 		<!-- canvas for ocean shader -->
 		<div id="canvas-3d" class="viewer"></div>
-		<!-- <div id="canvas-clouds" class="viewer"></div> -->
 
 		<!-- External libraries -->
 		<script src="assets/libs/jquery.min.js"></script>
@@ -57,7 +59,7 @@
 		<script src="assets/js/window.js"></script>
 		<script src="assets/js/demo.js"></script>
 		<script src="assets/js/ocean.js"></script>
-		<script src="assets/js/clouds2.js"></script>
+		<script src="assets/js/clouds.js"></script>
 		<!--<script type="text/javascript" src="assets/js/forest.js"></script>
 		<script type="text/javascript" src="assets/js/rain.js"></script>-->
 
@@ -101,7 +103,6 @@
 			}
 
 		</script>
-		<!--<script type="text/javascript" src="assets/js/clouds.js"></script>-->
 
 		<!-- keyboard listeners -->
 		<script id="listeners" src="assets/js/listeners.js"></script>
