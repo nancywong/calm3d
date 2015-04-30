@@ -4,7 +4,7 @@ var oldSrc = "";
 var $player = $('#sounds-player');
 var $sounds = $('#sounds');
 
-var instruct = 'ocean:<br>clouds:<br>move mouse to pan<br>'
+var instruct = 'click and drag to look around<br>arrow keys to pan<br>'
 
 var toggleMute = function () {
   var $player = document.getElementById('sounds-player');
@@ -40,16 +40,16 @@ var update = function () {
 
 // on-click buttons
 var toOcean = function () {
+  instruct = 'click and drag to look around<br>arrow keys to pan<br>'
+  update();
+
   if(scene_s !== OCEAN_S) {
-    instruct = 'click and drag to look around<br>arrow keys to pan<br>'
-    update();
+    if(scene_s == CLOUDS_S) {
+      var clouds = document.getElementById('clouds-container');
+      clouds.parentNode.removeChild(clouds);
+    }
 
-    var clouds = document.getElementById('clouds-container');
-    clouds.parentNode.removeChild(clouds);
-
-   $('#canvas-3d').show();
-
-    $('body').css("background-color","#000");
+    $('#canvas-3d').show();
 
     $sounds.attr("src", 'assets/mp3s/ocean.mp3');
     $player.load();
@@ -69,7 +69,7 @@ var toClouds = function () {
     $sounds.attr("src", 'assets/mp3s/wind.wav');
     $player.load();
     
-    cloudsInit();
+    clouds_init();
     scene_s = CLOUDS_S;
   }
   
