@@ -4,7 +4,7 @@ var oldSrc = "";
 var $player = $('#sounds-player');
 var $sounds = $('#sounds');
 
-var instruct = 'ocean:<br>clouds:<br>move mouse to pan<br>'
+var instruct = 'click and drag to look around<br>arrow keys to pan<br>'
 
 var toggleMute = function () {
   var $player = document.getElementById('sounds-player');
