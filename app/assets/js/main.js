@@ -11,7 +11,6 @@ function mainLoop() {
       OCEAN.update();
     break;
     case CLOUDS_S:
-      //CLOUDS.update();
       clouds_animate();
     break;
     case RAIN_S:

@@ -30,10 +30,7 @@ function init() {
         transparent: true,
         alphaTest: 0.5
     });
-    // material.color.setHSL(1.0, 0.3, 0.7);
     particles = new THREE.PointCloud(geometry, material);
-    // particles.sortParticles = true;
-    // Using material.alphaTest = 0.5 instead
     scene.add(particles);
     renderer = new THREE.WebGLRenderer({
         clearAlpha: 1,
