@@ -1,74 +1,56 @@
-public static final String OCEAN_S  = 'ocean';
-public static final String CLOUDS_S = 'clouds';
-public static final String RAIN_S   = 'rain';
-public static final String FOREST_S = 'forest';
+const OCEAN_S  = 'ocean';
+const CLOUDS_S = 'clouds';
+const RAIN_S   = 'rain';
+const FOREST_S = 'forest';
 
-var scene = OCEAN_S;
+var scene_s = OCEAN_S;
 
 function mainLoop() {
-  requestAnimationFrame(mainLoop);
-
-  switch(scene) {
+  switch(scene_s) {
     case OCEAN_S:
       OCEAN.update();
     break;
     case CLOUDS_S:
+      clouds_animate();
     break;
     case RAIN_S:
     break;
     case FOREST_S:
     break;
   }
-  OCEAN.update();
+  requestAnimationFrame(mainLoop);
 }
 
 function onDocumentMouseDown(event) {
-    event.preventDefault();
-    
-    var vector = new THREE.Vector3( 
-        ( event.clientX / window.innerWidth ) * 2 - 1, 
-        - ( event.clientY / window.innerHeight ) * 2 + 1, 
-        0.5 );
-    
-    OCEAN.ms_Projector.unprojectVector( vector, OCEAN.ms_Camera );
-    
-    var ray = new THREE.Raycaster( DEMO.ms_Camera.position, vector.sub( OCEAN.ms_Camera.position ).normalize() );
-    var intersects = ray.intersectObjects( OCEAN.ms_Clickable );    
+  switch(scene_s) {
+    case OCEAN_S:
+      event.preventDefault();
+      
+      var vector = new THREE.Vector3( 
+          ( event.clientX / window.innerWidth ) * 2 - 1, 
+          - ( event.clientY / window.innerHeight ) * 2 + 1, 
+          0.5 );
+      
+      OCEAN.ms_Projector.unprojectVector( vector, OCEAN.ms_Camera );
+      
+      var ray = new THREE.Raycaster( OCEAN.ms_Camera.position, vector.sub( OCEAN.ms_Camera.position ).normalize() );
+      var intersects = ray.intersectObjects( OCEAN.ms_Clickable );    
 
-    if (intersects.length > 0) {  
-        intersects[0].object.callback();
-    }                
+      if (intersects.length > 0) {  
+          intersects[0].object.callback();
+      }  
+      break;
+  }
 }
 
 $(function() {
   WINDOW.initialize();
 
   document.addEventListener('click', onDocumentMouseDown, false);
+
+  if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
   
-  switch(scene) {
-    case OCEAN_S:
-      var parameters = {
-        alea: RAND_MT,
-        generator: PN_GENERATOR,
-        width: 2000,
-        height: 2000,
-        widthSegments: 250,
-        heightSegments: 250,
-        depth: 1500,
-        param: 4,
-        filterparam: 1,
-        filter: [ CIRCLE_FILTER ],
-        postgen: [ MOUNTAINS_COLORS ],
-        effect: [ DESTRUCTURE_EFFECT ]
-      };
-      
-      OCEAN.initialize('canvas-3d', parameters);
-      
-      WINDOW.resizeCallback = function(inWidth, inHeight) { OCEAN.resize(inWidth, inHeight); };
-      OCEAN.resize(WINDOW.ms_Width, WINDOW.ms_Height);
-    break;
-    case CLOUDS_S:
-    break;
-  
+  // default, start with ocean scene
+  loadOcean();
   mainLoop();
 });

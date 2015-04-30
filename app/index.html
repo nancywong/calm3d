@@ -11,22 +11,21 @@
 
 	<body>	
 		<!-- volume slider -->
-		<!--<script src="assets/js/slider.js"></script>-->
 		<div id="player">
-			<audio id='sounds' controls autoplay loop> 
-				<source id='ocean-sounds' src="assets/mp3s/ocean.mp3" type="audio/mpeg">
+			<audio id='sounds-player' controls autoplay loop> 
+				<source id='sounds' src="assets/mp3s/ocean.mp3" type="audio/mpeg">
 			</audio>
 			<p id="instructions">
 			m to mute<br><br>
 			click and drag to look around<br>
 			arrow keys to pan
-			<br>
+			<br></p>
 		</div>
-		<button id="ocean-button" type="button">ocean</button>
-		<button id="rain-button" type="button">rain</button>
+		<button id="ocean-button" type="button" onclick="toOcean()">ocean</button>
+		<button id="clouds-button" type="button" onclick="toClouds()">clouds</button>
 
 		<!-- canvas for ocean shader -->
-		<!-- <div id="canvas-3d" class="viewer"></div> -->
+		<div id="canvas-3d" class="viewer"></div>
 
 		<!-- External libraries -->
 		<script src="assets/libs/jquery.min.js"></script>
@@ -36,31 +35,31 @@
 		<script src="assets/libs/three/OrbitControls.js"></script>
 		<script src="assets/libs/three/ParticleEngine.js"></script>
 		<script src="assets/libs/FastBlur.js"></script>
-
 		
-		<!-- Terrain generator 
-	
-
+		<!-- Terrain generator -->
 		<script src="assets/libs/terrain-generator/mountains.js"></script>
 		<script src="assets/libs/terrain-generator/mersenne-twister.js"></script>
 		<script src="assets/libs/terrain-generator/blur.js"></script>
 		<script src="assets/libs/terrain-generator/destructure.js"></script>
 		<script src="assets/libs/terrain-generator/perlinnoise.js"></script>
 		<script src="assets/libs/terrain-generator/terraingen.js"></script>	
-		<script src="assets/libs/terrain-generator/circle.js"></script>-->
+		<script src="assets/libs/terrain-generator/circle.js"></script>
 
 
 		<!-- Water shader -->
-		<script src="assets/js/water-material.js"></script>-->
+		<script src="assets/js/water-material.js"></script>
 		
-		<!-- Demo files 
+		<!-- Demo files -->
 		<script src="assets/js/window.js"></script>
 		<script src="assets/js/demo.js"></script>
-		<script src="assets/js/ocean.js"></script> -->
+		<script src="assets/js/ocean.js"></script>
+		<script src="assets/js/clouds.js"></script>
 		<!--<script type="text/javascript" src="assets/js/forest.js"></script>
 		<script type="text/javascript" src="assets/js/rain.js"></script>-->
 
 		<script type="text/javascript" src="assets/js/detector.js"></script>
+
+		<script src="assets/js/main.js"></script>
 
 		<!-- clouds shaders -->
 		<script id="vs" type="x-shader/x-vertex">
@@ -98,7 +97,6 @@
 			}
 
 		</script>
-		<script type="text/javascript" src="assets/js/clouds.js"></script>
 
 		<!-- keyboard listeners -->
 		<script id="listeners" src="assets/js/listeners.js"></script>

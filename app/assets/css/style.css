@@ -1,5 +1,5 @@
 body {
-	background-color : #326696;
+	background-color : #000;
 	margin : 0px;
 	padding : 0px;
 	color : #fff;
@@ -17,6 +17,10 @@ a {
   margin: 10px;
 }
 
+#scene-instructions {
+  position:absolute;
+}
+
 #player {
   display:inline-block;
   vertical-align: middle;
@@ -29,7 +33,7 @@ a {
   padding-right: 15px;
 }
 
-#rain-button {
+#clouds-button {
   display:inline-block;
   vertical-align: middle;
   padding-left: 15px;
@@ -39,4 +43,9 @@ a {
 #canvas-3d {
   position:absolute;
   z-index: 0;
+}
+
+#clouds-container {
+  background-image: url('../img/clouds-bg.png');
+  background-color: #1e4877;
 }

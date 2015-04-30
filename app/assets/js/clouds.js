@@ -1,55 +1,20 @@
-// // x-shader/x-vertex
-// varying vec2 vUv;
+var cloudsContainer;
+var cloudsCamera, cloudsScene, cloudsRenderer;
+var cloudsMesh, cloudsGeometry, cloudsMaterial;
 
-// void main() {
-
-//   vUv = uv;
-//   gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
-
-// }
-
-// // x-shader/x-fragment
-// uniform sampler2D map;
-
-// uniform vec3 fogColor;
-// uniform float fogNear;
-// uniform float fogFar;
-
-// varying vec2 vUv;
-
-// void main() {
-
-//   float depth = gl_FragCoord.z / gl_FragCoord.w;
-//   float fogFactor = smoothstep( fogNear, fogFar, depth );
-
-//   gl_FragColor = texture2D( map, vUv );
-//   gl_FragColor.w *= pow( gl_FragCoord.z, 20.0 );
-//   gl_FragColor = mix( gl_FragColor, vec4( fogColor, gl_FragColor.w ), fogFactor );
-
-// }
-
-// main body
-if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
-
-var container;
-var camera, scene, renderer;
-var mesh, geometry, material;
-
-var mouseX = 0, mouseY = 0;
-var start_time = Date.now();
+var cloudsMouseX = 0, cloudsMouseY = 0;
+var startTime = Date.now();
 
 var windowHalfX = window.innerWidth / 2;
 var windowHalfY = window.innerHeight / 2;
 
-init();
+var cloudsInit = function cloudsInit() {
 
-function init() {
-
-  container = document.createElement( 'div' );
-  document.body.appendChild( container );
+  cloudsContainer = document.createElement( 'div' );
+  cloudsContainer.id = 'clouds-container';
+  document.body.appendChild( cloudsContainer );
 
   // Bg gradient
-
   var canvas = document.createElement( 'canvas' );
   canvas.width = 32;
   canvas.height = window.innerHeight;
@@ -57,46 +22,42 @@ function init() {
   var context = canvas.getContext( '2d' );
 
   var gradient = context.createLinearGradient( 0, 0, 0, canvas.height );
-  gradient.addColorStop(0, "#1e4877");
-  gradient.addColorStop(0.5, "#4584b4");
+  gradient.addColorStop(0, '#1e4877');
+  gradient.addColorStop(0.5, '#4584b4');
 
   context.fillStyle = gradient;
   context.fillRect(0, 0, canvas.width, canvas.height);
 
-  container.style.background = 'url(' + canvas.toDataURL('image/png') + ')';
-  container.style.backgroundSize = '32px 100%';
+  cloudsContainer.style.background = 'url(' + canvas.toDataURL('image/png') + ')';
+  cloudsContainer.style.backgroundSize = '32px 100%';
 
-  //
+  cloudsCamera = new THREE.PerspectiveCamera( 30, window.innerWidth / window.innerHeight, 1, 3000 );
+  cloudsCamera.position.z = 6000;
 
-  camera = new THREE.PerspectiveCamera( 30, window.innerWidth / window.innerHeight, 1, 3000 );
-  camera.position.z = 6000;
+  cloudsScene = new THREE.Scene();
 
-  scene = new THREE.Scene();
+  cloudsGeometry = new THREE.Geometry();
 
-  geometry = new THREE.Geometry();
-
-  var texture = THREE.ImageUtils.loadTexture( 'assets/img/cloud.png', null, animate );
+  var texture = THREE.ImageUtils.loadTexture( 'assets/img/cloud.png', null, clouds_animate );
   texture.magFilter = THREE.LinearMipMapLinearFilter;
   texture.minFilter = THREE.LinearMipMapLinearFilter;
 
   var fog = new THREE.Fog( 0x4584b4, - 100, 3000 );
 
-  material = new THREE.ShaderMaterial( {
+  cloudsMaterial = new THREE.ShaderMaterial( {
 
     uniforms: {
 
       "map": { type: "t", value: texture },
       "fogColor" : { type: "c", value: fog.color },
       "fogNear" : { type: "f", value: fog.near },
-      "fogFar" : { type: "f", value: fog.far },
-
+      "fogFar" : { type: "f", value: fog.far }
     },
     vertexShader: document.getElementById( 'vs' ).textContent,
     fragmentShader: document.getElementById( 'fs' ).textContent,
     depthWrite: false,
     depthTest: false,
     transparent: true
-
   } );
 
   var plane = new THREE.Mesh( new THREE.PlaneGeometry( 64, 64 ) );
@@ -109,52 +70,45 @@ function init() {
     plane.rotation.z = Math.random() * Math.PI;
     plane.scale.x = plane.scale.y = Math.random() * Math.random() * 1.5 + 0.5;
 
-    THREE.GeometryUtils.merge( geometry, plane );
-
+    THREE.GeometryUtils.merge( cloudsGeometry, plane );
   }
 
-  mesh = new THREE.Mesh( geometry, material );
-  scene.add( mesh );
+  cloudsMesh = new THREE.Mesh( cloudsGeometry, cloudsMaterial );
+  cloudsScene.add( cloudsMesh );
 
-  mesh = new THREE.Mesh( geometry, material );
-  mesh.position.z = - 8000;
-  scene.add( mesh );
+  cloudsMesh = new THREE.Mesh( cloudsGeometry, cloudsMaterial );
+  cloudsMesh.position.z = - 8000;
+  cloudsScene.add( cloudsMesh );
 
-  renderer = new THREE.WebGLRenderer( { antialias: false } );
-  renderer.setSize( window.innerWidth, window.innerHeight );
-  container.appendChild( renderer.domElement );
+  cloudsRenderer = new THREE.WebGLRenderer( { antialias: false } );
+  cloudsRenderer.setSize( window.innerWidth, window.innerHeight );
+  cloudsContainer.appendChild( cloudsRenderer.domElement );
 
-  document.addEventListener( 'mousemove', onDocumentMouseMove, false );
-  window.addEventListener( 'resize', onWindowResize, false );
-
-}
-
-function onDocumentMouseMove( event ) {
-
-  mouseX = ( event.clientX - windowHalfX ) * 0.25;
-  mouseY = ( event.clientY - windowHalfY ) * 0.15;
+  document.addEventListener( 'mousemove', clouds_onDocumentMouseMove, false );
+  window.addEventListener( 'resize', clouds_onWindowResize, false );
 
 }
 
-function onWindowResize( event ) {
-
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-
-  renderer.setSize( window.innerWidth, window.innerHeight );
-
+function clouds_onDocumentMouseMove( event ) {
+  cloudsMouseX = ( event.clientX - windowHalfX ) * 0.25;
+  cloudsMouseY = ( event.clientY - windowHalfY ) * 0.15;
 }
 
-function animate() {
+function clouds_onWindowResize( event ) {
+  cloudsCamera.aspect = window.innerWidth / window.innerHeight;
+  cloudsCamera.updateProjectionMatrix();
 
-  requestAnimationFrame( animate );
+  cloudsRenderer.setSize( window.innerWidth, window.innerHeight );
+}
 
-  position = ( ( Date.now() - start_time ) * 0.03 ) % 8000;
+function clouds_animate() {
 
-  camera.position.x += ( mouseX - camera.position.x ) * 0.01;
-  camera.position.y += ( - mouseY - camera.position.y ) * 0.01;
-  camera.position.z = - position + 8000;
+  position = ( ( Date.now() - startTime ) * 0.03 ) % 8000;
 
-  renderer.render( scene, camera );
+  cloudsCamera.position.x += ( cloudsMouseX - cloudsCamera.position.x ) * 0.01;
+  cloudsCamera.position.y += ( - cloudsMouseY - cloudsCamera.position.y ) * 0.01;
+  cloudsCamera.position.z = - position + 8000;
+
+  cloudsRenderer.render( cloudsScene, cloudsCamera );
 
 }
